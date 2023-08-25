@@ -15,7 +15,7 @@ interface CellActionProps {
 };
 
 export const CellAction: React.FC<CellActionProps> = ({
-    data
+    data,
 }) => {
     const router = useRouter();
     const params = useParams();
@@ -29,6 +29,7 @@ export const CellAction: React.FC<CellActionProps> = ({
     }
 
     const onDelete = async () => {
+        debugger;
         try {
             setLoading(true);
             await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
