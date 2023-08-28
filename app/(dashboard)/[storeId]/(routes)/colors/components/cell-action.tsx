@@ -2,7 +2,7 @@
 
 import { toast } from "react-hot-toast";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { SizeColumn } from "./columns";
+import { ColorColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-    data: SizeColumn;
+    data: ColorColumn;
 };
 
 export const CellAction: React.FC<CellActionProps> = ({
@@ -25,17 +25,17 @@ export const CellAction: React.FC<CellActionProps> = ({
 
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
-        toast.success("Size id copied to clipboard.");
+        toast.success("Color id copied to clipboard.");
     }
 
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+            await axios.delete(`/api/${params.storeId}/colors/${data.id}`);
             router.refresh();
-            toast.success("Size deleted.");
+            toast.success("Color deleted.");
         } catch (error) {
-            toast.error("Make sure you removed all products using this size");
+            toast.error("Make sure you removed all products using this color first.");
         } finally {
             setLoading(false);
             setOpen(false);
@@ -61,7 +61,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <Edit className="mr-2 h-4 w-4" />
                     Copy Id
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}>
+                <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/colors/${data.id}`)}>
                     <Edit className="mr-2 h-4 w-4" />
                     Update
                 </DropdownMenuItem>
