@@ -68,7 +68,7 @@ export async function PATCH (
             return new NextResponse("StoreId is required", { status: 400 })
         }
 
-        if (!images || !images.lenght) {
+        if (!images || !images.length) {
             return new NextResponse("Images are required", { status: 400 })
         }
 
@@ -93,11 +93,11 @@ export async function PATCH (
                 categoryId, 
                 sizeId, 
                 colorId, 
-                isFeatured, 
-                isArchived,
                 images: {
                     deleteMany: {}
-                }
+                },
+                isFeatured, 
+                isArchived,
             }
         });
 
@@ -108,9 +108,9 @@ export async function PATCH (
             data: {
                 images: {
                     createMany: {
-                        data: {
-                            ...images.map((image: { url: string}) => image),
-                        }
+                        data: images.map((image: { url: string }) => ({
+                            url: image.url
+                        }))
                     }
                 }
             }
@@ -118,7 +118,7 @@ export async function PATCH (
 
         return NextResponse.json(product);
     } catch (error) {
-        console.log("[BILLBOARD_PATCH]", error)
+        console.log("[PRODUCT_PATCH]", error)
         return new NextResponse("Internal error", { status: 500 });
     }
 }

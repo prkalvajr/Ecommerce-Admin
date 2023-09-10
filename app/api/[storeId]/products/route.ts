@@ -84,7 +84,7 @@ export async function POST(
             return new NextResponse("StoreId is required", { status: 400 })
         }
 
-        if (!images || !images.lenght) {
+        if (!images || !images.length) {
             return new NextResponse("Images are required", { status: 400 })
         }
 
